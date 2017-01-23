@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Twitter BBC Music Awards</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+
+body {font-family: "Lato", sans-serif}
+.wordcloud {
+  margin-left: -100px;
+}
+
+
+.mySlides {display: none}
+
+#RTchartdiv {
+  width: 50%;
+  height: 250px;
+  padding-left: 100px;
+}
+
+#chart_div1 {
+  /*width: 100%;*/
+  height: 400px;
+  /*margin-left:-100px;*/
+  /*padding-right: 120px;*/
+}
+
+#barchart_div {
+  width: 100%;
+  /*margin-left: 100px;*/
+}
+
+#stbarchartdiv {
+width		: 100%;
+height		: 300px;
+font-size	: 11px;
+}
+
+#artchart_div {
+  width: 100%;
+  /*margin-left: -100px;*/
+}
+
+#perchart_div {
+  width: 100%;
+  /*margin-left: -130px;*/
+}
+
+.twitter-tweet {
+  color: #6699cc;
+}
+
+#yellow {
+  color: #ffd633;
+}
+
+#blu {
+  color: #1ac6ff;
+}
+
+#green {
+  color: #85e085;
+}
+div.legend {
+position: relative;
+left: 500px;
+  font-size: 12px;
+
+}
+#wordcloud {
+  margin-left: -100px;
+  max-width: 100%;
+}
+
+</style>
+
+</head>
+<script type="text/jquery" src="js/jquery-3.1.1.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+
+
+<!-- RT vs Tweets -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="RTvT.js"> </script>
+
+
+<!-- Resources timeline graph -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="timeline.js"></script>
+<!-- <script type= "text/jquery"    src="https://www.google.com/jsapi"></script> -->
+
+<!-- Resources Stacked Bar Chart -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="BBCchart.js"></script>
+
+<!-- twitter embeds -->
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<!-- artists bar chart -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="barchartest.js"></script>
+
+<!-- artists line graph -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="Artists.js"></script>
+
+<!-- performers line graph -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="Performers.js"></script>
+
+<!-- Adam Lambert -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="Adam.js"></script>
+
+
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+<ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+  <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
+    <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+  </li>
+  <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">TWITTER ANALYSIS: #BBCMUSICAWARDS</a></li>
+  <!-- <li class="w3-hide-small"><a href="#TopTweeters" class="w3-padding-large">TOP TWEETERS</a></li>
+  <li class="w3-hide-small"><a href="#BBC" class="w3-padding-large">BBC COVERAGE</a></li>
+  <li class="w3-hide-small"><a href="#timeline" class="w3-padding-large">TIMELINE</a></li>
+  <li class="w3-hide-small"><a href="#timeline" class="w3-padding-large">TIMELINE</a></li> -->
+  <li class="w3-hide-small w3-dropdown-hover">
+    <a href="javascript:void(0)" class="w3-hover-none w3-padding-large" title="More">CHAPTERS <i class="fa fa-caret-down"></i></a>
+    <div class="w3-dropdown-content w3-white w3-card-4">
+      <a href="#intro">Introduction</a>
+      <a href="#TopTweeters">Top Tweeters and Retweeters</a>
+      <a href="#BBC">BBC Coverage</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#top">Twitter favourites</a>
+      <a href="#adam">Adam Lambert</a>
+      <a href="#wordcloud">Wordcloud</a>
+    </div>
+  </li>
+</ul>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <ul class="w3-navbar w3-left-align w3-black">
+    <li><a class="w3-padding-large" href="#TopTweeters">TOP TWEETERS</a></li>
+    <li><a class="w3-padding-large" href="#BBC">BBC COVERAGE</a></li>
+    <li><a class="w3-padding-large" href="#timeline">TIMELINE</a></li>
+    <li><a class="w3-padding-large" href="#top">TWITTER FAVOURITES</a></li>
+    <li><a class="w3-padding-large" href="#adam">ADAM LAMBERT</a></li>
+    <li><a class="w3-padding-large" href="#wordcloud">WORDCLOUD</a></li>
+
+  </ul>
+</div>
+
+<!-- Page content -->
+<div class="w3-content">
+   <!-- style="max-width:2000px;margin-top:46px" -->
+
+
+
+  <!-- The intro Section -->
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="intro">
+    <h1>TWITTER ANALYSIS: BBC MUSIC AWARDS</h1>
+    <h2 class="w3-opacity"><i>Introduction</i></h2>
+    <p class="w3-justify"> The following analysis focuses on the Twitter traffic developed during the BBC Music Awards 2016.</p>
+
+<p>The event happened on the 12th of December 2016 between 20.30 and 22.30 and was broadcasted live on the BBC.</p>
+
+<p>To study the behaviour of the audience, I decided to scrape the hashtag #BBCMusicAwards from 18.00 to 23.30 and it resulted in almost 25.000 tweets.</p>
+
+<p>The idea was to inspect the attitude of the public, to see if there is a connection between the amount of tweets addressed to a certain artist and his victory or his appearance on stage. </p>
+
+<p>The intent was also to demonstrate who and what are the users tweeting about, who is the favourite celebrity of the event and which episodes during the night raised more response.</p>
+
+<p>Furthermore, I focused on the BBC British Artist nominees – <b>Adele, Coldplay, David Bowie, Calvin Harris</b> and <b>Jess Glynne</b> -  and the performers of the night – <b>The 1975, Craig David, Emeli Sandé, John Legend, Izzy Bizu, Robbie Williams</b> and <b>Zara Larsson</b> – linked to the #BBCMusicAwards hashtag. </p>
+I counted how many times each of them have been named or addressed in tweets related to the event and consequently discovered which artist is the Twitter favourite. </p>
+</p>
+</div>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="TopTweeters">
+
+<h2 class "w3-wide"> Top Tweeters and Retweeters: who they are.</h2>
+
+
+<!-- <table>
+    <caption>
+        <p>Top Tweeters and Retweeters</p>
+    </caption>
+    <thead>
+        <tr><th>Username</th><th># of Tweets</th><th>Who is he?</th></tr>
+    </thead>
+    <tbody>
+        <tr><td id=user>@kemalh1</td><td>102</td><td>Young TV obsessive </td></tr>
+        <tr><td class=user>@Bbluesky992</td><td>99</td><td>Lambert fan</td></tr>
+        <tr><td class=user>@bbcmusic</td><td>82</td> <td> </td> </tr>
+        <tr><td class=user>@BBCMusicAwards</td><td>73</td> <td> </td> </tr>
+        <tr><td class=user>@BBCR1</td><td>70</td> <td> BBC Radio 1</td> </tr>
+        <tr><td class=user>@Pat_rocks</td><td>69</td> <td> Lambert fan</td> </tr>
+        <tr><td class=user>@Mmadamimadamm </td><td>54</td> <td> Lambert fan</td> </tr>
+        <tr><td class=user>@WellSpokenBloke </td><td>53</td> <td> Young music fan</td> </tr>
+        <tr><td class=user>@BBCRadio2</td><td>82</td> <td> </td> </tr>
+        <tr><td class=user>@AflGamer</td><td>82</td> <td> Lambert fan</td> </tr>
+
+    </tbody>
+</table> -->
+
+
+<p class="w3-opacity"><i>Top Tweeters</i></p>
+<p class="w3-justify"> With Top tweeters, I mean the top ten accounts who have been more active during the show.<br>
+In the top ten tweeters, four are BOTs, but as soon as they are removed from the list, the outcome is rather curious as explained later. <br>
+
+As expected, in the top list there are @Bbcmusic, @BBCMusicAwards, @BBCRadio1 and @BBCRadio2. <br>
+But who are the rest? <br>
+@Bbluesky922, @Pat-rocks, @Mmadamimadamm and @AflGamer - 40% of the top tweeters - are Adam Lambert wild-eye-fanatics.</p>
+2.5% of tweets come from the top ten tweeters.
+<p class="w3-opacity"><i>Top Retweeters</i></p>
+<p class="w3-justify"> The situation is even more surprising in the Top Re-Tweeters, where a stunning 90% come from Adam Lambert fans. They call themselves “Glambert” and they have monopolised and strongly shaped the tweets result. <br>
+In the top 10 retweeters there are 5 BOTs. After removing them from the list, more Adam Lambert fans came through. <br>
+In the top ten, apart from Adam Lambert fans, there is a TV fan – who dominates the total tweets too - and Zara Larsson Brazilian fan page.</p>
+3.2% of retweets come from the top ten retweeters.
+<p class="w3-opacity"><i>Top Original Tweeters</i></p>
+
+<p class="w3-justify">When scraping the top original tweeters, only one original tweet out of ten comes from a Lambert fan, leading to think that maybe most of those “Glambert” profiles were actually BOTs. <br>
+
+While inspecting those profile carefully again, it was hard to tell if they were all BOTs or not. I decided to remove those profiles who seemed more likely to be BOTs and even more Lambert fans authentic profiles came across.  <br>
+For more information about Adam Lambert, click <a href="#adam">here</a>. </p>
+<p>In the Top original Tweeters, we find Bbcmusic, BBCRadio 1, a young men passionate about music showbiz, an influential comedian, a TV producer, a Kaiser Chief fan and the Brazilian Lambert fan club. </p>
+4% of original tweets come from the top ten original tweeters. </p>
+<centre> <div id="RTchartdiv"></div> </centre>
+<!-- Histogram? -->
+</div>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="BBC">
+
+<h2 class="w3-wide"> BBC coverage and Top Retweets</h2>
+<p class="w3-justify">BBC Music, BBC Music Awards and BBC Radio 1 accounts are the most active BBC accounts covering the show. <br>
+  BBC Radio 1 counts an astonishing 2.76 million followers, BBC Music counts 103K followers while BBC Music Awards, which has been created on December 2016 as the official account for the event, counts only 37 followers and even if its traffic is high, it consists of mainly retweets. </p>
+
+  <!-- Stacked bar chart -->
+  <div id="stbarchartdiv"></div>
+
+
+<p class="w3-justify">  BBC Music and BBC Radio 1 create the most retweeted content of the entire night. <br>
+BBC Music’s tweet about Coldplay winning the BBC Best British Artist of the Year is number one, with 995 retweets, followed by a tweet about The 1975 winning the BBC Radio 1 Live Lounge of the Year award, which has been retweeted 649 times.
+<br>Third place goes to BBC Radio 1 tweet containing a video in which The Vamps - a British pop-rock band - invite people to watch the programme. </p>
+<p>The most retweeted tweet: </p>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Aaaand the BBC Music British Artist of the Year goes to...<a href="https://twitter.com/coldplay">@Coldplay</a>! 👏<a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a> <a href="https://t.co/e3MNSMUklI">pic.twitter.com/e3MNSMUklI</a></p>&mdash; BBC Music (@bbcmusic) <a href="https://twitter.com/bbcmusic/status/808416747783147520">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+</div>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="timeline">
+
+<h2 class="w3-wide"> Analysing the timeline</h2>
+<p class="w3-justify">The following graph represents the total tweets volume during the programme. <br>The scrape begins two and a half hours before the start of the show and terminates one hour after the end. The highest volume of tweets is between 20:30 and 22:30, when the show occurs.<br>
+Below there is a report of what happened in the peak moments and what the people were tweeting about. </p>
+
+<div class="w3-justify" id="chart_div1"> </div>
+
+
+<h3 class="w3-opacity"><i>Peak Moments</i></h3>
+
+  <h4><b>19:03</b></h4>
+  <ul>
+  <li>@BBCR1's tweet containing a video in which The Vamps invite people to watch the programme has been retweeted 135 times, becoming the third most retweeted tweet.
+</li>
+<li>Adam Lambert appears on the screen during a press interview announcing that he is working on new material. @BBCNewsEnts tweets about that and it has been retweeted 280 times in total, becoming the 10th most retweeted tweet.</li>
+</ul>
+
+  <h4><b>20:33</b></h4>
+<ul>
+   <li>The programme starts. </li>
+   <li>Most tweets are retweets of @bbcmusic posting a picture of Adam Lambert in the red carpet. </li>
+   <li>General comments about the artists, especially the 1975, about the hosts and Adam Lambert.</li>
+</ul>
+
+  <h4><b>20:38</b></h4>
+<ul>
+   <li>The 1975 just performed.</li>
+   <li>Top tweet:</li>
+</ul>
+
+<blockquote class="twitter-tweet" data-lang="en-gb"><p lang="en" dir="ltr">Thank you for opening the show <a href="https://twitter.com/the1975">@the1975</a> 🌸<a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a> <a href="https://t.co/qTxHEmEHwW">pic.twitter.com/qTxHEmEHwW</a></p>&mdash; BBC Music (@bbcmusic) <a href="https://twitter.com/bbcmusic/status/808410295504871427">12 December 2016</a></blockquote>
+
+<h4><b>20:47</b></h4>
+<ul>
+  <li>Adele wins BBC Radio 2 Album of the year. </li>
+  <li>Robbie Williams goes on stage to take Adele’s prize on her behalf.</li>
+  <li>The following tweet by Robbie Williams and Adele's reply is the seventh most retweeted tweet, with 336 shares:</li>
+</ul>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Love you <a href="https://twitter.com/Adele">@adele</a> congratulations x <a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a> <a href="https://t.co/xL94bND6zs">https://t.co/xL94bND6zs</a></p>&mdash; Robbie Williams (@robbiewilliams) <a href="https://twitter.com/robbiewilliams/status/808412837802573824">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/robbiewilliams">@robbiewilliams</a> I love you too, you legend! X</p>&mdash; Adele (@Adele) <a href="https://twitter.com/Adele/status/808425470056398848">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h4><b>20:52</b></h4>
+<ul>
+  <li>Although Lukas Graham has just performed, most of the tweets are about The 1975 and their performance.</li>
+  <li>The top retweet at 20.52 is a meme of The 1975 vocalist Matthew Healy, first tweeted by BBC Radio 1.</li>
+  <li>Another top retweet is the one written by Matthew Healy’s mother which has been retweeted 150 times during the show. </li>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The pride when your son rings you straight after <a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a> xx</p>&mdash; Denise Welch (@RealDeniseWelch) <a href="https://twitter.com/RealDeniseWelch/status/808413318989905920">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</ul>
+
+<h4><b>21:04</b></h4>
+<ul>
+<li> Coldplay wins BBC Music British Artist of the Year.</li>
+<li> @bbcmusic tweets what it would be the most retweeted tweet.</li>
+</ul>
+
+<h4><b>21:08</b></h4>
+<ul>
+  <li>Record of tweets of the entire show: 276 tweets in this very minute, most of them about Coldplay winning the BBC British Artist of the Year.</li>
+  <li> Adam Lambert introduces the award.</li>
+  <li>Coldplay sent a video from Australia thanking for the award. </li>
+  <li>The previous @bbcmusic’s tweet has 83 shares already. </li>
+</ul>
+
+<h4><b>21:37</b></h4>
+<ul>
+  <li>Craig David just performed live. </li>
+  <li> The 1975 wins Radio 1 Live Lounge Performance of the Year.</li>
+  <li>The top retweet of the moment is composed by BBC Radio 1 and shared 26 times: it will be the second best retweet with 649 shares in total.</li>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">WINNERS of the <a href="https://twitter.com/hashtag/R1LiveLounge?src=hash">#R1LiveLounge</a> of the year 2016 <a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a> - we love you, <a href="https://twitter.com/the1975">@the1975</a> <a href="https://t.co/Dxytm4syUr">pic.twitter.com/Dxytm4syUr</a></p>&mdash; BBC Radio 1 (@BBCR1) <a href="https://twitter.com/BBCR1/status/808425272932450304">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<li>There are 80 tweets about The 1975 winning the Live BBC Radio 1 award, just 8 less than 20.37, the moment they received the most Twitter traffic due to their performance on the stage.</li>
+<li>Between 21.36 and 21.44 there has been the highest number of tweets addressed to Craig David, who was performing live.
+  <br>He is the third most tweeted artist among the performers, as shown in the next chapter graph. </li>
+</ul>
+
+<h4><b>21:43</b></h4>
+<ul>
+<li>People are still tweeting about Craig David performance and The 1975 victory.</li>
+<li>The @BBCR1 tweet is shared 59 times right now.</li>
+</ul>
+<h4><b>21:55</b></h4>
+<ul>
+<li>This is the third moment of the night with most number of tweets: 265.</li>
+<li> Zara Larsson has performed live and her tweet is shared 15 times. It will be retweeted 266 times in total.</li>
+</ul>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a> was amazeballz. Too bad I lost my god damn hearing in the middle of the song 😭😭😭😭</p>&mdash; Zara Larsson (@zaralarsson) <a href="https://twitter.com/zaralarsson/status/808429418511265797">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h4><b>22:02</b></h4>
+<ul>
+<li>Another Twitter peak for The 1975 right after the official fan club twitter account tweeted that the band won the Lounge Live Award. </li>
+<li>The graph shows a slow but relentless decrease of tweets as the show comes to an end, with a final small peak of 123 tweets at 22.27, when the show finishes with Robbie Williams performance.</li>
+<li>There is a general retweet of the most retweeted tweets of the night, especially those regarding the winners - The 1975, Coldplay, Adele. </li>
+</ul>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="top">
+  <h2 class="w3-wide"> Award Nominees and Performers: who is the Twitter favourite?</h2>
+  <p class="w3-justify">The following bar chart highlights which artists have been named the most in the twitter feeds linked to #BBCMusicAwards hashtag. </p>
+    <div class="legend">
+       <p id="yellow"> <b>YELLOW: </b> BBC Best British Artist Nominees; </p>
+       <p id="blu"> <b>BLUE:</b>Performers </p>
+       <p id="green"> <b>GREEN:</b>Performers and Nominees </p>
+    </div>
+
+
+  <div id="barchart_div"></div>
+
+<p class="w3-justify"> The 1975 apparently was on everyone’s lips during the show. The amount of tweets and re-tweets directed to them are by far the highest.
+  <br> They not only opened the awards performing “The Sound”, but also won the BBC Radio 1 Live Lounge Performance Award.</p>
+<p> The 1975 have been the most tweeted and retweeted artist of the show and this clearly demonstrates the love of the audience for this band.</p>
+</div>
+
+<div class="w3-container w3-content w3-padding-24" style="max-width:800px">
+
+<h3 class="w3-opacity"><i>Tweets about the Nominees</i></h3>
+
+
+  <div id="artchart_div"></div>
+
+  <p>93% of the tweets regarding the nominees are directed to Adele and Coldplay, 2229 and 2102 respectively, as seen in the previous bar chart. </p>
+<p>Coldplay’s tweet volume peaks at 21.08 with 124 tweets, just after being awarded the BBC British Artist of the Year Award. </p>
+<p> Adele keeps a high level of tweets over the entire length of the programme with two main high points: at 20.47, when she wins  Radio 2 Album of the Year and at 21.54 when she wins Song of the Year with her hit “Hello”.</p>
+<p>In general, there has not been much fuss about less likely-to-win artists like Calvin Harris or Jess Glynn. </p>
+<p>Tweets about David Bowie, instead, have been very controversial.
+  <br>Every tweet about him expresses a certain anger about the decision of putting such a big icon on the same nominee group together with artists with a total different cultural impact.
+  <br>The incredulity of Bowie losing against Coldplay is another main topic of these tweets.</p>
+
+  <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I can&#39;t take an awards ceremony seriously when Bowie and Jess Glynne are in the same category. I lasted 32 minutes, I&#39;m out <a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a></p>&mdash; phill (@soft_shock_) <a href="https://twitter.com/soft_shock_/status/808416989547024385">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You can&#39;t nominate Bowie then not give it him. That&#39;s just asking to be hated by the nation <a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a></p>&mdash; Matt Newton (@MattNewton_UK) <a href="https://twitter.com/MattNewton_UK/status/808416972719460352">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Coldplay just won over David Bowie. A decision in line with 2016&#39;s other decisions. <a href="https://twitter.com/hashtag/BBCMusicAwards?src=hash">#BBCMusicAwards</a></p>&mdash; james norman-fyfe (@jamesfyfe92) <a href="https://twitter.com/jamesfyfe92/status/808417514296373252">December 12, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+
+  <h3 class="w3-opacity"><i>Tweets about the Performers</i></h3>
+
+<div id="perchart_div"></div>
+
+<p> Among the performers, Zara Larsson is the second most talked act after The 1975.</p>
+
+  <p>There is a peak of 75 tweets around Zara Larsson performing time, at 21.50. Her tweet about losing her earring raises most of the retweets, demonstrating again that people love this kind of insight from celebrities.</p>
+  <p>The same happened with Robbie Williams and Adele's tweets exchange, right after Adele's Best Album award, or Matthew Healy’s mother tweet.  </p>
+   <p>As a matter of fact, one of the most valuable aspects about Twitter is that it allows the interaction between famous people and their fans, rendering the celebrity more 'human', closer to reality and to their followers.</p>
+
+<p>Third most talked act is Craig David, followed closely by Robbie Williams who ended the show performing his hit “Sensational”. </p>
+<p> The rest of the performers’ tweets have not created much noise, apart from small peaks at the end of each performance as seen above: Lukas Graham at 20.51, Emeli Sandé at 20.54, John Legend at 21.11, Izzi Bizu at 21.19 has a peak of 27 tweets which corresponds also to her victory of BBC Introducing Award, and finally Kaiser Chief at 21.27. </p>
+
+</div>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="adam">
+  <h2 class="w3-wide"> Adam Lambert case study </h2>
+  <p class="w3-justify">Adam Lambert is a 34 years old singer who became famous thanks to American Idol.</p>
+    <p> He released three very successful albums and in 2011 he started to collaborate with the historical rock band Queens as lead vocalist.
+      <br> He was also one of the judges at American Idol and X-Factor Australia in 2015 and 2016. </p>
+
+<div id="barchart2_div"></div>
+
+<p>During the event, he hit the stage only once, to present the BBC British Artist of the Year prize, but his presence on Twitter remains steady since before the start, when during a press interview he disclosed that he is working on new material.</p>
+
+<p>Even if his presence was short, without him the result of this scrape would have been completely different.</p>
+<p>His fans are not only part of the top ten tweeters and retweeters, but he also got tweeted more than any other artist who performed during the night and more than any other nominee or winner.</p>
+<p>Performers and nominees' tweet volume reached higher peaks over the show, which corresponded to their awards or to their performances, while Adam Lambert Twitter presence was regular all over the event, with a small peak when he announces Coldplay victory.</p>
+
+</div>
+
+<!-- <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="wordcloud"> -->
+  <h2 class="w3-wide"> Wordcloud: the most used words </h2>
+  <div class=wordcloud>
+  <svg width="960" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg"><g></g>
+ <g transform="translate(480,300)scale(1.188118815422058,1.188118815422058)">
+      <text text-anchor="middle" transform="translate(-78,176)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">Perform</text><text text-anchor="middle" transform="translate(165,116)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(206, 109, 189);">think</text><text text-anchor="middle" transform="translate(-111,124)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">single</text><text text-anchor="middle" transform="translate(-286,50)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">middle</text>
+      <text text-anchor="middle" transform="translate(45,152)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">line</text><text text-anchor="middle" transform="translate(35,60)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">part</text><text text-anchor="middle" transform="translate(-125,-22)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">way</text><text text-anchor="middle" transform="translate(205,-187)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">many</text><text text-anchor="middle" transform="translate(-3,-5)rotate(29.999999999999993)" style="font-size: 51px; font-family: Impact; fill: rgb(99, 121, 57);"></text><text text-anchor="middle" transform="translate(-297,29)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">everything</text><text text-anchor="middle" transform="translate(140,84)rotate(0)" style="font-size: 65px; font-family: Impact; fill: rgb(107, 110, 207);">Year</text><text text-anchor="middle" transform="translate(121,-41)rotate(29.999999999999993)" style="font-size: 51px; font-family: Impact; fill: rgb(156, 158, 222);">BBC</text><text text-anchor="middle" transform="translate(-145,-126)rotate(-29.999999999999993)" style="font-size: 47px; font-family: Impact; fill: rgb(99, 121, 57);">music</text><text text-anchor="middle" transform="translate(-100,-93)rotate(59.99999999999999)" style="font-size: 42px; font-family: Impact; fill: rgb(140, 162, 82);">Artist</text><text text-anchor="middle" transform="translate(-216,72)rotate(0)" style="font-size: 42px; font-family: Impact; fill: rgb(181, 207, 107);">award</text><text text-anchor="middle" transform="translate(124,25)rotate(0)" style="font-size: 42px; font-family: Impact; fill: rgb(206, 219, 156);">LIVE</text><text text-anchor="middle" transform="translate(183,-59)rotate(29.999999999999993)" style="font-size: 42px; font-family: Impact; fill: rgb(140, 109, 49);">Coldplay</text><text text-anchor="middle" transform="translate(37,42)rotate(-29.999999999999993)" style="font-size: 42px; font-family: Impact; fill: rgb(189, 158, 57);">British</text><text text-anchor="middle" transform="translate(214,-2)rotate(29.999999999999993)" style="font-size: 35px; font-family: Impact; fill: rgb(231, 186, 82);">picture</text><text text-anchor="middle" transform="translate(-39,94)rotate(-29.999999999999993)" style="font-size: 35px; font-family: Impact; fill: rgb(231, 203, 148);">love</text><text text-anchor="middle" transform="translate(61,91)rotate(-59.99999999999999)" style="font-size: 35px; font-family: Impact; fill: rgb(132, 60, 57);">Heres</text><text text-anchor="middle" transform="translate(-51,49)rotate(-29.999999999999993)" style="font-size: 35px; font-family: Impact; fill: rgb(173, 73, 74);">adamlambert</text><text text-anchor="middle" transform="translate(110,147)rotate(59.99999999999999)" style="font-size: 35px; font-family: Impact; fill: rgb(214, 97, 107);">Looking</text><text text-anchor="middle" transform="translate(-86,107)rotate(-29.999999999999993)" style="font-size: 35px; font-family: Impact; fill: rgb(231, 150, 156);">RT</text><text text-anchor="middle" transform="translate(228,-78)rotate(29.999999999999993)" style="font-size: 35px; font-family: Impact; fill: rgb(123, 65, 115);">Thank</text><text text-anchor="middle" transform="translate(44,-57)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(165, 81, 148);">album</text><text text-anchor="middle" transform="translate(-30,120)" style="font-size: 26px; font-family: Impact; fill: rgb(206, 109, 189);">GIF</text><text text-anchor="middle" transform="translate(14,-32)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(222, 158, 214);">things</text><text text-anchor="middle" transform="translate(96,-98)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(57, 59, 121);">Omg</text><text text-anchor="middle" transform="translate(238,52)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(82, 84, 163);">boys</text><text text-anchor="middle" transform="translate(-149,-50)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(107, 110, 207);">WON</text><text text-anchor="middle" transform="translate(-207,-1)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(156, 158, 222);">new</text><text text-anchor="middle" transform="translate(-68,0)rotate(29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(99, 121, 57);">Song</text><text text-anchor="middle" transform="translate(177,15)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(140, 162, 82);">2016</text><text text-anchor="middle" transform="translate(-20,-69)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(181, 207, 107);">1975</text><text text-anchor="middle" transform="translate(41,-105)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(206, 219, 156);">winner</text><text text-anchor="middle" transform="translate(-241,-9)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(140, 109, 49);">Hello</text><text text-anchor="middle" transform="translate(-171,-62)rotate(-59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(189, 158, 57);">LOUNGE</text><text text-anchor="middle" transform="translate(-236,96)rotate(0)" style="font-size: 26px; font-family: Impact; fill: rgb(231, 186, 82);">performance</text><text text-anchor="middle" transform="translate(-147,5)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(231, 203, 148);">happened</text><text text-anchor="middle" transform="translate(224,-127)rotate(0)" style="font-size: 26px; font-family: Impact; fill: rgb(132, 60, 57);">LiveWithThe1975</text><text text-anchor="middle" transform="translate(-120,7)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(173, 73, 74);">chat</text><text text-anchor="middle" transform="translate(-140,147)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(214, 97, 107);">bbcmusic</text><text text-anchor="middle" transform="translate(-184,21)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(231, 150, 156);">Adam</text><text text-anchor="middle" transform="translate(12,151)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(123, 65, 115);">Lambert</text><text text-anchor="middle" transform="translate(70,139)rotate(0)" style="font-size: 26px; font-family: Impact; fill: rgb(165, 81, 148);">side</text><text text-anchor="middle" transform="translate(243,88)rotate(-59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(206, 109, 189);">want</text><text text-anchor="middle" transform="translate(-61,-134)rotate(29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(222, 158, 214);">QUEEN</text><text text-anchor="middle" transform="translate(102,-18)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(57, 59, 121);">old</text><text text-anchor="middle" transform="translate(291,-28)rotate(-59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(82, 84, 163);">Bowie</text><text text-anchor="middle" transform="translate(309,-5)rotate(-59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(107, 110, 207);">red</text><text text-anchor="middle" transform="translate(-225,-58)rotate(-29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(156, 158, 222);">carpet</text><text text-anchor="middle" transform="translate(289,59)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(99, 121, 57);">Awards</text><text text-anchor="middle" transform="translate(-81,137)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(140, 162, 82);">Dont</text><text text-anchor="middle" transform="translate(73,-156)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(181, 207, 107);">tonight</text><text text-anchor="middle" transform="translate(203,147)rotate(0)" style="font-size: 26px; font-family: Impact; fill: rgb(206, 219, 156);">Husband</text><text text-anchor="middle" transform="translate(326,67)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(140, 109, 49);">Divorced</text><text text-anchor="middle" transform="translate(-111,-45)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(189, 158, 57);">Wife</text><text text-anchor="middle" transform="translate(-14,163)rotate(59.99999999999999)" style="font-size: 26px; font-family: Impact; fill: rgb(231, 186, 82);">Closer</text><text text-anchor="middle" transform="translate(82,177)rotate(29.999999999999993)" style="font-size: 26px; font-family: Impact; fill: rgb(231, 203, 148);">really</text><text text-anchor="middle" transform="translate(-126,112)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">Dec</text><text text-anchor="middle" transform="translate(-104,146)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">obviously</text><text text-anchor="middle" transform="translate(-199,111)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">Wow</text><text text-anchor="middle" transform="translate(20,75)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">model</text><text text-anchor="middle" transform="translate(328,-66)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">Swishswishswish</text><text text-anchor="middle" transform="translate(-54,-30)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">Lightsabres</text><text text-anchor="middle" transform="translate(-245,29)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">ready</text><text text-anchor="middle" transform="translate(7,-114)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">king</text><text text-anchor="middle" transform="translate(204,10)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">arrived</text><text text-anchor="middle" transform="translate(40,-150)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">WARNING</text><text text-anchor="middle" transform="translate(-34,-89)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">opening</text><text text-anchor="middle" transform="translate(185,-111)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">show</text><text text-anchor="middle" transform="translate(-185,36)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">Just</text><text text-anchor="middle" transform="translate(237,-110)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">nod</text><text text-anchor="middle" transform="translate(6,82)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">Thats</text><text text-anchor="middle" transform="translate(-39,62)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">need</text><text text-anchor="middle" transform="translate(-198,-140)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">SnapchatSpectacles</text><text text-anchor="middle" transform="translate(77,97)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">Hands</text><text text-anchor="middle" transform="translate(-83,27)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">Amazing</text><text text-anchor="middle" transform="translate(-125,-101)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">BBCR1</text><text text-anchor="middle" transform="translate(218,83)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">might</text><text text-anchor="middle" transform="translate(-215,-104)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">make</text><text text-anchor="middle" transform="translate(131,-19)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">melt</text><text text-anchor="middle" transform="translate(262,59)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">pride</text><text text-anchor="middle" transform="translate(199,99)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">son</text><text text-anchor="middle" transform="translate(166,-154)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">rings</text><text text-anchor="middle" transform="translate(252,109)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">straight</text><text text-anchor="middle" transform="translate(-175,129)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">watching</text><text text-anchor="middle" transform="translate(-8,-131)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">accepting</text><text text-anchor="middle" transform="translate(-115,-86)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">feeling</text><text text-anchor="middle" transform="translate(269,-99)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">aesthetic</text><text text-anchor="middle" transform="translate(217,158)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">congratulations</text><text text-anchor="middle" transform="translate(121,-119)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">x</text><text text-anchor="middle" transform="translate(-147,63)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">Frank</text><text text-anchor="middle" transform="translate(-50,-48)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">ocean</text><text text-anchor="middle" transform="translate(44,-23)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">Travi$</text><text text-anchor="middle" transform="translate(-141,44)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">Scott</text><text text-anchor="middle" transform="translate(-209,147)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">nominated</text><text text-anchor="middle" transform="translate(-28,169)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">The1975Updates</text><text text-anchor="middle" transform="translate(-175,-16)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">big</text><text text-anchor="middle" transform="translate(-61,-111)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">character</text><text text-anchor="middle" transform="translate(-230,28)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">camp</text><text text-anchor="middle" transform="translate(157,35)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">frivolity</text><text text-anchor="middle" transform="translate(17,-146)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">wouldnt</text><text text-anchor="middle" transform="translate(333,12)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">performing</text><text text-anchor="middle" transform="translate(-29,-156)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">Everglow</text><text text-anchor="middle" transform="translate(271,86)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">recorded</text><text text-anchor="middle" transform="translate(-261,21)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">Melbourne</text><text text-anchor="middle" transform="translate(-226,123)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">Presenter</text><text text-anchor="middle" transform="translate(-164,33)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">Adele</text><text text-anchor="middle" transform="translate(-244,110)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">wins</text><text text-anchor="middle" transform="translate(225,32)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">second</text><text text-anchor="middle" transform="translate(63,-17)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">prize</text><text text-anchor="middle" transform="translate(-239,-84)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">best</text><text text-anchor="middle" transform="translate(-240,-98)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">actual</text><text text-anchor="middle" transform="translate(-163,151)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">message</text><text text-anchor="middle" transform="translate(225,10)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">1</text><text text-anchor="middle" transform="translate(-11,90)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">soon</text><text text-anchor="middle" transform="translate(-189,157)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">special</text><text text-anchor="middle" transform="translate(132,97)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">Craig</text><text text-anchor="middle" transform="translate(-48,170)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">David</text><text text-anchor="middle" transform="translate(335,-22)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">WINNERS</text><text text-anchor="middle" transform="translate(-288,112)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">R1LiveLounge</text><text text-anchor="middle" transform="translate(-147,-109)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">done</text><text text-anchor="middle" transform="translate(329,-3)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">LAST</text><text text-anchor="middle" transform="translate(-210,125)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">Like</text><text text-anchor="middle" transform="translate(-274,-29)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">Beautiful</text><text text-anchor="middle" transform="translate(6,-171)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">Aware</text><text text-anchor="middle" transform="translate(-55,122)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">Pop</text><text text-anchor="middle" transform="translate(-52,-167)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">chilled</text><text text-anchor="middle" transform="translate(65,-74)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">Christmas</text><text text-anchor="middle" transform="translate(15,-126)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">tells</text><text text-anchor="middle" transform="translate(57,199)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">redcarpet</text><text text-anchor="middle" transform="translate(201,123)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">Indisputable</text><text text-anchor="middle" transform="translate(-212,-48)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">truths</text><text text-anchor="middle" transform="translate(-156,23)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">truly</text><text text-anchor="middle" transform="translate(-173,171)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">star</text><text text-anchor="middle" transform="translate(138,-157)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">sensational</text><text text-anchor="middle" transform="translate(178,170)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">Backstage</text><text text-anchor="middle" transform="translate(6,98)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">Dear</text><text text-anchor="middle" transform="translate(110,-158)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">fans</text><text text-anchor="middle" transform="translate(272,135)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">exactly</text><text text-anchor="middle" transform="translate(-89,6)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">hours</text><text text-anchor="middle" transform="translate(41,-178)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">answering</text><text text-anchor="middle" transform="translate(-322,54)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">questions</text><text text-anchor="middle" transform="translate(-286,2)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">Hmmm</text><text text-anchor="middle" transform="translate(-44,187)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">hes</text><text text-anchor="middle" transform="translate(-261,125)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">working</text><text text-anchor="middle" transform="translate(223,-165)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">nominations</text><text text-anchor="middle" transform="translate(293,91)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">tokenism</text><text text-anchor="middle" transform="translate(356,35)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">wasnt</text><text text-anchor="middle" transform="translate(115,-177)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">popular</text><text text-anchor="middle" transform="translate(220,173)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">singer</text><text text-anchor="middle" transform="translate(301,-83)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">lovely</text><text text-anchor="middle" transform="translate(333,-39)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">stars</text><text text-anchor="middle" transform="translate(287,-112)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">goes</text><text text-anchor="middle" transform="translate(-258,-107)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">material</text><text text-anchor="middle" transform="translate(-305,17)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">Keeping</text><text text-anchor="middle" transform="translate(289,-86)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">lots</text><text text-anchor="middle" transform="translate(-142,166)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">crossed</text><text text-anchor="middle" transform="translate(98,-201)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">The1975LiveLounge</text><text text-anchor="middle" transform="translate(-274,-71)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">NEWS</text><text text-anchor="middle" transform="translate(315,-83)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">win</text><text text-anchor="middle" transform="translate(-155,190)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">London</text><text text-anchor="middle" transform="translate(-13,-180)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">Congrats</text><text text-anchor="middle" transform="translate(-249,156)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">fantastic</text><text text-anchor="middle" transform="translate(-276,137)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">Thanks</text><text text-anchor="middle" transform="translate(-292,-58)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">Watch</text><text text-anchor="middle" transform="translate(120,110)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">LA</text><text text-anchor="middle" transform="translate(-285,-36)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">alarm</text><text text-anchor="middle" transform="translate(-31,-55)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">guys</text><text text-anchor="middle" transform="translate(162,-196)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">amazeballz</text><text text-anchor="middle" transform="translate(15,-194)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">INCREDIBLE</text><text text-anchor="middle" transform="translate(-71,-39)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">Ù÷</text><text text-anchor="middle" transform="translate(-93,178)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">ÏÉåÊÙÕÑ</text><text text-anchor="middle" transform="translate(-312,-7)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">started</text><text text-anchor="middle" transform="translate(182,-176)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">Rerewind</text><text text-anchor="middle" transform="translate(-328,-7)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">rickontour</text><text text-anchor="middle" transform="translate(-142,-86)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">vs</text><text text-anchor="middle" transform="translate(63,-202)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">battle</text><text text-anchor="middle" transform="translate(293,126)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">blue</text><text text-anchor="middle" transform="translate(-176,-166)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">jackets</text><text text-anchor="middle" transform="translate(97,148)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">bad</text><text text-anchor="middle" transform="translate(87,-43)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">lost</text><text text-anchor="middle" transform="translate(18,-70)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">god</text><text text-anchor="middle" transform="translate(-201,172)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">damn</text><text text-anchor="middle" transform="translate(372,2)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">hearing</text><text text-anchor="middle" transform="translate(182,-162)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">take</text><text text-anchor="middle" transform="translate(341,-55)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">stage</text><text text-anchor="middle" transform="translate(173,192)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">present</text><text text-anchor="middle" transform="translate(-104,-182)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">isÛColdplay</text><text text-anchor="middle" transform="translate(-305,-80)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">BBCMusicAwÛ</text><text text-anchor="middle" transform="translate(-65,-193)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">ZaraLarsson</text><text text-anchor="middle" transform="translate(246,-157)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">talk</text><text text-anchor="middle" transform="translate(-71,-179)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">UK</text><text text-anchor="middle" transform="translate(265,104)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">miss</text><text text-anchor="middle" transform="translate(-37,-193)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 109, 49);">aired</text><text text-anchor="middle" transform="translate(314,-99)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(189, 158, 57);">ÙÕÄÙ</text><text text-anchor="middle" transform="translate(-226,-162)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">BBCMusicAwardsÛ</text><text text-anchor="middle" transform="translate(-29,202)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">celebs</text><text text-anchor="middle" transform="translate(156,-13)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">spot</text><text text-anchor="middle" transform="translate(-26,-38)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">well</text><text text-anchor="middle" transform="translate(-61,206)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">Dogs</text><text text-anchor="middle" transform="translate(353,-69)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">come</text><text text-anchor="middle" transform="translate(-55,-92)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">OH</text><text text-anchor="middle" transform="translate(-186,193)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">LORD</text><text text-anchor="middle" transform="translate(284,-155)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">MERCY</text><text text-anchor="middle" transform="translate(-33,-19)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">3
+</text></g>
+</svg>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+<!-- End Page Content -->
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <i class="fa fa-facebook-official w3-hover-text-indigo"></i>
+  <i class="fa fa-instagram w3-hover-text-purple"></i>
+  <i class="fa fa-snapchat w3-hover-text-yellow"></i>
+  <i class="fa fa-pinterest-p w3-hover-text-red"></i>
+  <i class="fa fa-twitter w3-hover-text-light-blue"></i>
+  <i class="fa fa-linkedin w3-hover-text-indigo"></i>
+  <p class="w3-medium">Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+
+
+</body>
+</html>
